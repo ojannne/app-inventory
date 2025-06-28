@@ -1,66 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🕌 Inventory Pesantren
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem manajemen inventaris untuk pesantren yang dibangun dengan Laravel 10 dan AdminLTE.
 
-## About Laravel
+## 🚀 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Dashboard** - Statistik aset, kategori, dan maintenance
+- **Manajemen Kategori** - CRUD kategori aset
+- **Manajemen Aset** - CRUD aset dengan foto
+- **Maintenance** - Tracking maintenance aset
+- **Autentikasi** - Login, register, dan reset password
+- **Responsive Design** - Menggunakan AdminLTE
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Kategori Aset
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Aset Bangunan** - Masjid, asrama, kelas, dapur
+2. **Peralatan** - Meja, kursi, alat ibadah
+3. **Buku & Kitab** - Perpustakaan pesantren
+4. **Kendaraan** - Mobil, motor operasional
+5. **Elektronik** - Komputer, printer, sound system
+6. **Pakaian & Seragam** - Seragam santri, jubah
 
-## Learning Laravel
+## 🛠️ Instalasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
+- PHP 8.1+
+- Composer
+- MySQL/MariaDB
+- XAMPP/WAMP/LAMP
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Langkah Instalasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone repository**
+```bash
+git clone <repository-url>
+cd laravel-inventory
+```
 
-## Laravel Sponsors
+2. **Install dependencies**
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. **Copy environment file**
+```bash
+cp .env.example .env
+```
 
-### Premium Partners
+4. **Generate application key**
+```bash
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+5. **Configure database di .env**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_laravel3
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Contributing
+6. **Run migrations dan seeder**
+```bash
+php artisan migrate:fresh --seed
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. **Create storage link**
+```bash
+php artisan storage:link
+```
 
-## Code of Conduct
+8. **Start server**
+```bash
+php artisan serve
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 👤 Akun Default
 
-## Security Vulnerabilities
+Setelah menjalankan seeder, tersedia akun default:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Admin
+- **Email:** admin@pesantren.com
+- **Password:** admin123
 
-## License
+### Petugas
+- **Email:** petugas@pesantren.com
+- **Password:** petugas123
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Ustadz
+- **Email:** ustadz@pesantren.com
+- **Password:** ustadz123
+
+## 📁 Struktur Database
+
+### Tabel Users
+- id, name, email, password, email_verified_at, created_at, updated_at
+
+### Tabel Kategori
+- id, nama_kategori, deskripsi, kode_kategori, status, created_at, updated_at
+
+### Tabel Aset
+- id, kode_aset, nama_aset, kategori_id, lokasi, kondisi, tanggal_pembelian, harga_beli, supplier, deskripsi, foto, status, user_id, created_at, updated_at
+
+### Tabel Maintenance
+- id, aset_id, jenis_maintenance, tanggal_maintenance, deskripsi, biaya, teknisi, status, catatan, user_id, created_at, updated_at
+
+## 🎨 Tema & UI
+
+Menggunakan AdminLTE 3 dengan tema pesantren:
+- Icon masjid untuk branding
+- Warna biru sebagai primary color
+- Responsive design untuk mobile dan desktop
+
+## 🔧 Pengembangan
+
+### Menambah Kategori Baru
+1. Buka menu "Kategori Aset"
+2. Klik "Tambah Kategori"
+3. Isi form dan simpan
+
+### Menambah Aset Baru
+1. Buka menu "Aset" (sesuai kategori)
+2. Klik "Tambah Aset"
+3. Upload foto (opsional)
+4. Isi semua field dan simpan
+
+### Maintenance Aset
+1. Buka menu "Maintenance"
+2. Klik "Tambah Maintenance"
+3. Pilih aset dan isi detail maintenance
+
+## 📊 Dashboard
+
+Dashboard menampilkan:
+- Total aset, kategori, dan maintenance
+- Status aset (tersedia, maintenance, rusak, dipinjam)
+- Aset terbaru
+- Maintenance terbaru
+- Total nilai aset
+
+## 🔒 Keamanan
+
+- Autentikasi Laravel
+- Validasi input
+- CSRF protection
+- File upload validation
+- Password hashing
+
+## 📝 License
+
+MIT License
+
+## 👨‍💻 Developer
+
+Dibuat dengan ❤️ untuk pesantren Indonesia
+
+---
+
+**Catatan:** Pastikan folder `storage/app/public/aset` memiliki permission write untuk upload foto aset.
