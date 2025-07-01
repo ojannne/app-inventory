@@ -21,25 +21,40 @@ class UserSeeder extends Seeder
             'name' => 'Administrator',
             'email' => 'admin@pesantren.com',
             'password' => Hash::make('admin123'),
+            'role' => 'admin',
             'email_verified_at' => now(),
         ]);
 
-        // Create additional users for testing
+        // Create petugas 1
         User::updateOrCreate([
-            'email' => 'petugas@pesantren.com'
+            'email' => 'petugas1@pesantren.com'
         ], [
-            'name' => 'Petugas Inventory',
-            'email' => 'petugas@pesantren.com',
+            'name' => 'Petugas Satu',
+            'email' => 'petugas1@pesantren.com',
             'password' => Hash::make('petugas123'),
+            'role' => 'petugas',
             'email_verified_at' => now(),
         ]);
 
+        // Create petugas 2
+        User::updateOrCreate([
+            'email' => 'petugas2@pesantren.com'
+        ], [
+            'name' => 'Petugas Dua',
+            'email' => 'petugas2@pesantren.com',
+            'password' => Hash::make('petugas123'),
+            'role' => 'petugas',
+            'email_verified_at' => now(),
+        ]);
+
+        // Create ustadz
         User::updateOrCreate([
             'email' => 'ustadz@pesantren.com'
         ], [
             'name' => 'Ustadz Ahmad',
             'email' => 'ustadz@pesantren.com',
             'password' => Hash::make('ustadz123'),
+            'role' => 'ustadz',
             'email_verified_at' => now(),
         ]);
     }

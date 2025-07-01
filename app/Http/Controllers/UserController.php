@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -103,6 +104,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'current_password' => 'nullable|required_with:new_password',
             'new_password' => 'nullable|string|min:8|confirmed',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $data = [
@@ -115,6 +117,17 @@ class UserController extends Controller
                 return back()->withErrors(['current_password' => 'Password saat ini tidak sesuai']);
             }
             $data['password'] = Hash::make($request->new_password);
+        }
+
+        if ($request->hasFile('profile_image')) {
+            // Hapus file lama jika ada
+            if ($user->profile_image) {
+                \Storage::delete('public/' . $user->profile_image);
+            }
+            $file = $request->file('profile_image');
+            $filename = 'profile_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/profile', $filename);
+            $data['profile_image'] = 'profile/' . $filename;
         }
 
         $user->update($data);

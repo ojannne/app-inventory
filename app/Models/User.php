@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'last_login_at',
+        'profile_image',
     ];
 
     /**
@@ -42,5 +44,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'last_login_at' => 'datetime',
     ];
+
+    /**
+     * Get the user profile image for AdminLTE user menu.
+     *
+     * @return string
+     */
+    public function adminlte_image()
+    {
+        if ($this->profile_image) {
+            return asset('storage/' . $this->profile_image);
+        }
+        // Default AdminLTE avatar
+        return asset('vendor/adminlte/dist/img/user2-160x160.jpg');
+    }
 }

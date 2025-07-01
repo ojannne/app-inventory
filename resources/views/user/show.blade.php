@@ -27,7 +27,11 @@
             <div class="card-body text-center">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
+                        @if($user->profile_image)
+                        <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Foto Profil" class="img-circle elevation-2" style="width: 80px; height: 80px; object-fit: cover;">
+                        @else
                         <i class="fas fa-user-circle fa-5x text-primary"></i>
+                        @endif
                     </div>
                     <div class="info ml-3">
                         <h5 class="mb-0">{{ $user->name }}</h5>
@@ -48,8 +52,8 @@
                 <div class="info-box bg-info">
                     <span class="info-box-icon"><i class="fas fa-calendar"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Bergabung Sejak</span>
-                        <span class="info-box-number">{{ $user->created_at->format('d/m/Y') }}</span>
+                        <span class="info-box-text">Waktu Input</span>
+                        <span class="info-box-number">{{ $user->created_at->format('d/m/Y H:i') }}</span>
                     </div>
                 </div>
 

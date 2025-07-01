@@ -33,12 +33,15 @@ class BackupController extends Controller
             $username = config('database.connections.mysql.username');
             $password = config('database.connections.mysql.password');
 
+            // Path lengkap ke mysqldump dan mysql
+            $mysqldump = 'C:\xampp\mysql\bin\mysqldump';
+
             // Create backup command
-            $command = "mysqldump -h {$host} -u {$username}";
+            $command = "\"$mysqldump\" -h {$host} -u {$username}";
             if ($password) {
                 $command .= " -p{$password}";
             }
-            $command .= " {$database} > {$backupPath}/{$filename}";
+            $command .= " {$database} > \"{$backupPath}/{$filename}\"";
 
             // Execute backup
             exec($command, $output, $returnCode);
@@ -98,12 +101,15 @@ class BackupController extends Controller
             $username = config('database.connections.mysql.username');
             $password = config('database.connections.mysql.password');
 
+            // Path lengkap ke mysqldump dan mysql
+            $mysql = 'C:\xampp\mysql\bin\mysql';
+
             // Create restore command
-            $command = "mysql -h {$host} -u {$username}";
+            $command = "\"$mysql\" -h {$host} -u {$username}";
             if ($password) {
                 $command .= " -p{$password}";
             }
-            $command .= " {$database} < {$tempPath}";
+            $command .= " {$database} < \"{$tempPath}\"";
 
             // Execute restore
             exec($command, $output, $returnCode);

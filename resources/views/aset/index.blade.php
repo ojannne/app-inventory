@@ -55,6 +55,9 @@
                                 <th width="15%">Kategori</th>
                                 <th width="10%">Kondisi</th>
                                 <th width="10%">Status</th>
+                                @if(auth()->user()->role === 'admin')
+                                <th width="10%">Diinput oleh</th>
+                                @endif
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
@@ -90,6 +93,9 @@
                                     <span class="badge badge-secondary">{{ $aset->status }}</span>
                                     @endif
                                 </td>
+                                @if(auth()->user()->role === 'admin')
+                                <td>{{ $aset->creator ? $aset->creator->name : '-' }}</td>
+                                @endif
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('aset.show', $aset->id) }}" class="btn btn-info btn-sm" title="Detail">

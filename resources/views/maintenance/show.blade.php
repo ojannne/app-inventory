@@ -124,6 +124,8 @@
                     </div>
                 </div>
                 @endif
+
+                <p><strong>Diinput oleh:</strong> {{ $maintenance->creator ? $maintenance->creator->name : '-' }}</p>
             </div>
         </div>
     </div>

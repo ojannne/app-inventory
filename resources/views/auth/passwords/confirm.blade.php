@@ -24,11 +24,9 @@
 
     <div class="input-group mb-3">
         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-            placeholder="Password" required autocomplete="current-password" autofocus>
+            id="confirm_password" placeholder="Password" required autocomplete="current-password" autofocus>
         <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-            </div>
+            <span class="input-group-text" style="cursor:pointer;" onclick="togglePassword('confirm_password', this)"><i class="fas fa-eye"></i></span>
         </div>
         @error('password')
         <span class="invalid-feedback" role="alert">
@@ -49,4 +47,26 @@
     <a href="{{ route('password.request') }}">Lupa password?</a>
 </p>
 @endif
+@stop
+
+@section('js')
+<script>
+    function togglePassword(id, el) {
+        const input = document.getElementById(id);
+        if (input.type === 'password') {
+            input.type = 'text';
+            el.querySelector('i').classList.remove('fa-eye');
+            el.querySelector('i').classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            el.querySelector('i').classList.remove('fa-eye-slash');
+            el.querySelector('i').classList.add('fa-eye');
+        }
+    }
+</script>
+@show
+
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+@parent
 @stop

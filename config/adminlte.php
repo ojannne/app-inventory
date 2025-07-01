@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -133,9 +133,9 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
+    'usermenu_image' => true,
     'usermenu_desc' => false,
     'usermenu_profile_url' => false,
 
@@ -314,111 +314,128 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        ['header' => 'INVENTORY PESANTREN'],
+        ['header' => 'INVENTORY PESANTREN', 'can' => ['admin', 'petugas']],
         [
             'text' => 'Dashboard',
             'url' => 'home',
             'icon' => 'fas fa-fw fa-tachometer-alt',
             'label_color' => 'info',
+            'can' => ['admin', 'petugas', 'ustadz'],
         ],
         [
             'text' => 'Kategori Aset',
             'url' => 'kategori',
             'icon' => 'fas fa-fw fa-tags',
             'label_color' => 'success',
+            'can' => ['admin'],
         ],
         [
             'text' => 'Aset Bangunan',
             'url' => 'bangunan',
             'icon' => 'fas fa-fw fa-mosque',
             'label_color' => 'primary',
+            'can' => ['admin', 'petugas'],
         ],
         [
             'text' => 'Peralatan',
             'url' => 'peralatan',
             'icon' => 'fas fa-fw fa-tools',
             'label_color' => 'warning',
+            'can' => ['admin', 'petugas'],
         ],
         [
             'text' => 'Buku & Kitab',
             'url' => 'buku',
             'icon' => 'fas fa-fw fa-book',
             'label_color' => 'info',
+            'can' => ['admin', 'petugas'],
         ],
         [
             'text' => 'Kendaraan',
             'url' => 'kendaraan',
             'icon' => 'fas fa-fw fa-car',
             'label_color' => 'secondary',
+            'can' => ['admin', 'petugas'],
         ],
         [
             'text' => 'Elektronik',
             'url' => 'elektronik',
             'icon' => 'fas fa-fw fa-laptop',
             'label_color' => 'danger',
+            'can' => ['admin', 'petugas'],
         ],
         [
             'text' => 'Pakaian & Seragam',
             'url' => 'pakaian',
             'icon' => 'fas fa-fw fa-tshirt',
             'label_color' => 'success',
+            'can' => ['admin', 'petugas'],
         ],
-        ['header' => 'LAPORAN & MONITORING'],
+        ['header' => 'LAPORAN & MONITORING', 'can' => ['admin', 'petugas']],
         [
             'text' => 'Dashboard Laporan',
             'url' => 'laporan',
             'icon' => 'fas fa-fw fa-chart-bar',
             'label_color' => 'info',
+            'can' => ['admin', 'petugas',],
         ],
         [
             'text' => 'Laporan Aset',
             'url' => 'laporan/aset',
             'icon' => 'fas fa-fw fa-file-alt',
             'label_color' => 'success',
+            'can' => ['admin', 'petugas'],
         ],
         [
             'text' => 'Laporan Maintenance',
             'url' => 'laporan/maintenance',
             'icon' => 'fas fa-fw fa-clipboard-list',
             'label_color' => 'warning',
+            'can' => ['admin', 'petugas'],
         ],
         [
             'text' => 'Laporan Kategori',
             'url' => 'laporan/kategori',
             'icon' => 'fas fa-fw fa-chart-pie',
             'label_color' => 'danger',
+            'can' => ['admin', 'petugas'],
         ],
         [
             'text' => 'Maintenance',
             'url' => 'maintenance',
             'icon' => 'fas fa-fw fa-wrench',
             'label_color' => 'warning',
+            'can' => ['admin', 'petugas'],
         ],
-        ['header' => 'MANAJEMEN SISTEM'],
+        ['header' => 'MANAJEMEN SISTEM', 'can' => ['admin']],
         [
             'text' => 'Pengguna',
             'url' => 'user',
             'icon' => 'fas fa-fw fa-users',
             'label_color' => 'primary',
+            'can' => ['admin'],
         ],
         [
             'text' => 'Profil Saya',
             'url' => 'profile',
             'icon' => 'fas fa-fw fa-user',
             'label_color' => 'info',
+            'can' => ['admin', 'petugas', 'ustadz'],
         ],
-        ['header' => 'PENGATURAN'],
+        ['header' => 'PENGATURAN', 'can' => ['admin', 'petugas']],
         [
             'text' => 'Profil Pesantren',
             'url' => 'pesantren',
             'icon' => 'fas fa-fw fa-mosque',
             'label_color' => 'success',
+            'can' => ['admin', 'petugas',],
         ],
         [
             'text' => 'Backup Data',
             'url' => 'backup',
             'icon' => 'fas fa-fw fa-database',
             'label_color' => 'warning',
+            'can' => ['admin'],
         ],
     ],
 
@@ -544,8 +561,7 @@ return [
 
     'iframe' => [
         'default_tab' => [
-            'url
-' => null,
+            'url' => null,
             'title' => null,
         ],
         'buttons' => [

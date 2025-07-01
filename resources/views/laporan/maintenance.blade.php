@@ -55,7 +55,7 @@
                             @endif
                         </td>
                         <td>{{ $maintenance->biaya ? 'Rp ' . number_format($maintenance->biaya, 0, ',', '.') : '-' }}</td>
-                        <td>{{ $maintenance->keterangan ?? '-' }}</td>
+                        <td>{{ $maintenance->catatan ?? '-' }}</td>
                     </tr>
                     @endforeach
                 </tbody>

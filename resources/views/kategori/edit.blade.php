@@ -10,6 +10,13 @@
             @csrf
             @method('PUT')
             <div class="form-group">
+                <label for="kode_kategori">Kode Kategori <span class="text-danger">*</span></label>
+                <input type="text" name="kode_kategori" id="kode_kategori" class="form-control @error('kode_kategori') is-invalid @enderror" value="{{ old('kode_kategori', $kategori->kode_kategori) }}" required>
+                @error('kode_kategori')
+                <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group">
                 <label>Nama Kategori</label>
                 <input type="text" name="nama_kategori" class="form-control @error('nama_kategori') is-invalid @enderror" value="{{ old('nama_kategori', $kategori->nama_kategori) }}" required>
                 @error('nama_kategori')<span class="invalid-feedback">{{ $message }}</span>@enderror

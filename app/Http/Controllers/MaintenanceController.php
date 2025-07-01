@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aset;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class MaintenanceController extends Controller
 {
@@ -32,7 +33,7 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'aset_id' => 'required|exists:aset,id',
+            'aset_id' => 'required|exists:asets,id',
             'jenis_maintenance' => 'required|in:preventif,korektif,emergency',
             'tanggal_maintenance' => 'required|date',
             'deskripsi' => 'required|string',
@@ -42,17 +43,24 @@ class MaintenanceController extends Controller
             'catatan' => 'nullable|string'
         ]);
 
-        Maintenance::create([
+        $tanggalMaintenance = $request->tanggal_maintenance;
+        if (strlen($tanggalMaintenance) === 10) { // format Y-m-d saja
+            $tanggalMaintenance .= ' ' . Carbon::now('Asia/Jakarta')->format('H:i:s');
+        }
+
+        $validatedData = [
             'aset_id' => $request->aset_id,
             'jenis_maintenance' => $request->jenis_maintenance,
-            'tanggal_maintenance' => $request->tanggal_maintenance,
+            'tanggal_maintenance' => $tanggalMaintenance,
             'deskripsi' => $request->deskripsi,
             'biaya' => $request->biaya,
             'teknisi' => $request->teknisi,
             'status' => $request->status,
             'catatan' => $request->catatan,
-            'user_id' => auth()->id()
-        ]);
+            'created_by' => auth()->id(),
+        ];
+
+        Maintenance::create($validatedData);
 
         // Update aset status
         $aset = Aset::find($request->aset_id);
@@ -90,7 +98,7 @@ class MaintenanceController extends Controller
     public function update(Request $request, Maintenance $maintenance)
     {
         $request->validate([
-            'aset_id' => 'required|exists:aset,id',
+            'aset_id' => 'required|exists:asets,id',
             'jenis_maintenance' => 'required|in:preventif,korektif,emergency',
             'tanggal_maintenance' => 'required|date',
             'deskripsi' => 'required|string',

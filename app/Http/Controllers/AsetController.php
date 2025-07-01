@@ -56,7 +56,8 @@ class AsetController extends Controller
             'harga' => $request->harga,
             'kondisi' => $request->kondisi,
             'status' => $request->status,
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
+            'created_by' => auth()->id(),
         ];
 
         // Handle gambar upload

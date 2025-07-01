@@ -102,15 +102,16 @@
                             </tr>
                             <tr>
                                 <td><strong>Tanggal Dibuat</strong></td>
-                                <td>{{ $aset->created_at->format('d/m/Y H:i') }}</td>
+                                <td><span class="waktu-lokal" data-waktu="{{ $aset->created_at->toIso8601String() }}">{{ $aset->created_at->format('d/m/Y H:i') }}</span></td>
                             </tr>
                             <tr>
                                 <td><strong>Terakhir Diupdate</strong></td>
-                                <td>{{ $aset->updated_at->format('d/m/Y H:i') }}</td>
+                                <td><span class="waktu-lokal" data-waktu="{{ $aset->updated_at->toIso8601String() }}">{{ $aset->updated_at->format('d/m/Y H:i') }}</span></td>
                             </tr>
                         </table>
                     </div>
                 </div>
+                <p><strong>Diinput oleh:</strong> {{ $aset->creator ? $aset->creator->name : '-' }}</p>
             </div>
         </div>
 
@@ -229,3 +230,20 @@
     }
 </style>
 @stop
+
+@section('js')
+<script>
+    document.querySelectorAll('.waktu-lokal').forEach(function(el) {
+        var waktu = el.getAttribute('data-waktu');
+        if (waktu) {
+            var d = new Date(waktu);
+            var tgl = d.toLocaleDateString('id-ID');
+            var jam = d.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            el.textContent = tgl + ' ' + jam;
+        }
+    });
+</script>
+@endsection

@@ -63,10 +63,9 @@
                                 <select class="form-control @error('jenis_maintenance') is-invalid @enderror"
                                     id="jenis_maintenance" name="jenis_maintenance" required>
                                     <option value="">Pilih Jenis Maintenance</option>
-                                    <option value="Preventive" {{ old('jenis_maintenance', $maintenance->jenis_maintenance) == 'Preventive' ? 'selected' : '' }}>Preventive</option>
-                                    <option value="Corrective" {{ old('jenis_maintenance', $maintenance->jenis_maintenance) == 'Corrective' ? 'selected' : '' }}>Corrective</option>
-                                    <option value="Emergency" {{ old('jenis_maintenance', $maintenance->jenis_maintenance) == 'Emergency' ? 'selected' : '' }}>Emergency</option>
-                                    <option value="Rutin" {{ old('jenis_maintenance', $maintenance->jenis_maintenance) == 'Rutin' ? 'selected' : '' }}>Rutin</option>
+                                    <option value="preventif" {{ old('jenis_maintenance', $maintenance->jenis_maintenance) == 'preventif' ? 'selected' : '' }}>Preventif</option>
+                                    <option value="korektif" {{ old('jenis_maintenance', $maintenance->jenis_maintenance) == 'korektif' ? 'selected' : '' }}>Korektif</option>
+                                    <option value="emergency" {{ old('jenis_maintenance', $maintenance->jenis_maintenance) == 'emergency' ? 'selected' : '' }}>Emergency</option>
                                 </select>
                                 @error('jenis_maintenance')
                                 <span class="invalid-feedback">{{ $message }}</span>
@@ -78,9 +77,10 @@
                                 <select class="form-control @error('status') is-invalid @enderror"
                                     id="status" name="status" required>
                                     <option value="">Pilih Status</option>
-                                    <option value="Belum Dimulai" {{ old('status', $maintenance->status) == 'Belum Dimulai' ? 'selected' : '' }}>Belum Dimulai</option>
-                                    <option value="Dalam Proses" {{ old('status', $maintenance->status) == 'Dalam Proses' ? 'selected' : '' }}>Dalam Proses</option>
-                                    <option value="Selesai" {{ old('status', $maintenance->status) == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                                    <option value="pending" {{ old('status', $maintenance->status) == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="proses" {{ old('status', $maintenance->status) == 'proses' ? 'selected' : '' }}>Proses</option>
+                                    <option value="selesai" {{ old('status', $maintenance->status) == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                                    <option value="dibatalkan" {{ old('status', $maintenance->status) == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
                                 </select>
                                 @error('status')
                                 <span class="invalid-feedback">{{ $message }}</span>

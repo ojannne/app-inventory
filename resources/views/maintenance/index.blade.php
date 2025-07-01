@@ -56,6 +56,9 @@
                                 <th width="20%">Deskripsi</th>
                                 <th width="10%">Status</th>
                                 <th width="10%">Biaya</th>
+                                @if(auth()->user()->role === 'admin')
+                                <th width="10%">Diinput oleh</th>
+                                @endif
                                 <th width="10%">Aksi</th>
                             </tr>
                         </thead>
@@ -88,6 +91,9 @@
                                     <span class="text-muted">-</span>
                                     @endif
                                 </td>
+                                @if(auth()->user()->role === 'admin')
+                                <td>{{ $maintenance->creator ? $maintenance->creator->name : '-' }}</td>
+                                @endif
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('maintenance.show', $maintenance->id) }}" class="btn btn-info btn-sm" title="Detail">

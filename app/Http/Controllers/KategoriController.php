@@ -33,18 +33,19 @@ class KategoriController extends Controller
         $request->validate([
             'nama_kategori' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'status' => 'required|in:aktif,nonaktif'
+            'status' => 'required|in:aktif,nonaktif',
+            'kode_kategori' => 'required|string|max:255|unique:kategoris,kode_kategori',
         ]);
 
-        // Generate kode kategori
-        $kode = 'KAT-' . strtoupper(Str::random(4));
-
-        Kategori::create([
+        $validatedData = [
             'nama_kategori' => $request->nama_kategori,
             'deskripsi' => $request->deskripsi,
-            'kode_kategori' => $kode,
-            'status' => $request->status
-        ]);
+            'kode_kategori' => $request->kode_kategori,
+            'status' => $request->status,
+            'created_by' => auth()->id()
+        ];
+
+        Kategori::create($validatedData);
 
         return redirect()->route('kategori.index')
             ->with('success', 'Kategori berhasil ditambahkan!');
@@ -74,13 +75,15 @@ class KategoriController extends Controller
         $request->validate([
             'nama_kategori' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'status' => 'required|in:aktif,nonaktif'
+            'status' => 'required|in:aktif,nonaktif',
+            'kode_kategori' => 'required|string|max:255|unique:kategoris,kode_kategori,' . $kategori->id,
         ]);
 
         $kategori->update([
             'nama_kategori' => $request->nama_kategori,
             'deskripsi' => $request->deskripsi,
-            'status' => $request->status
+            'status' => $request->status,
+            'kode_kategori' => $request->kode_kategori,
         ]);
 
         return redirect()->route('kategori.index')

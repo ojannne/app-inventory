@@ -19,7 +19,8 @@ class Maintenance extends Model
         'teknisi',
         'status',
         'catatan',
-        'user_id'
+        'user_id',
+        'created_by'
     ];
 
     protected $casts = [
@@ -35,5 +36,10 @@ class Maintenance extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

@@ -33,7 +33,11 @@
             <div class="card-body text-center">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
+                        @if($user->profile_image)
+                        <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Foto Profil" class="img-circle elevation-2" style="width: 80px; height: 80px; object-fit: cover;">
+                        @else
                         <i class="fas fa-user-circle fa-4x text-primary"></i>
+                        @endif
                     </div>
                     <div class="info ml-3">
                         <h5 class="mb-0">{{ $user->name }}</h5>
@@ -56,7 +60,9 @@
                     <span class="info-box-icon"><i class="fas fa-clock"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Login Terakhir</span>
-                        <span class="info-box-number">{{ $user->updated_at->format('d/m/Y H:i') }}</span>
+                        <span class="info-box-number">
+                            {{ $user->last_login_at ? $user->last_login_at->format('d/m/Y H:i') : '-' }}
+                        </span>
                     </div>
                 </div>
 
@@ -78,7 +84,7 @@
             <div class="card-header">
                 <h3 class="card-title">Edit Profil</h3>
             </div>
-            <form action="{{ route('user.update-profile') }}" method="POST">
+            <form action="{{ route('user.update-profile') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     @if($errors->any())
@@ -109,14 +115,33 @@
                         @enderror
                     </div>
 
+                    <div class="form-group text-center">
+                        <label for="profile_image">Foto Profil</label><br>
+                        @if($user->profile_image)
+                        <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Foto Profil" class="img-thumbnail mb-2" style="max-width: 120px;">
+                        @else
+                        <i class="fas fa-user-circle fa-4x text-primary mb-2"></i>
+                        @endif
+                        <input type="file" class="form-control-file mt-2 @error('profile_image') is-invalid @enderror" id="profile_image" name="profile_image" accept="image/*">
+                        @error('profile_image')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                        @enderror
+                        <small class="form-text text-muted">Format: JPG, PNG, Max: 2MB</small>
+                    </div>
+
                     <hr>
                     <h5>Ubah Password</h5>
                     <p class="text-muted">Kosongkan jika tidak ingin mengubah password</p>
 
                     <div class="form-group">
                         <label for="current_password">Password Saat Ini</label>
-                        <input type="password" class="form-control @error('current_password') is-invalid @enderror"
-                            id="current_password" name="current_password">
+                        <div class="input-group">
+                            <input type="password" class="form-control @error('current_password') is-invalid @enderror"
+                                id="current_password" name="current_password">
+                            <div class="input-group-append">
+                                <span class="input-group-text" onclick="togglePassword('current_password', this)"><i class="fas fa-eye"></i></span>
+                            </div>
+                        </div>
                         @error('current_password')
                         <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -124,8 +149,13 @@
 
                     <div class="form-group">
                         <label for="new_password">Password Baru</label>
-                        <input type="password" class="form-control @error('new_password') is-invalid @enderror"
-                            id="new_password" name="new_password">
+                        <div class="input-group">
+                            <input type="password" class="form-control @error('new_password') is-invalid @enderror"
+                                id="new_password" name="new_password">
+                            <div class="input-group-append">
+                                <span class="input-group-text" onclick="togglePassword('new_password', this)"><i class="fas fa-eye"></i></span>
+                            </div>
+                        </div>
                         @error('new_password')
                         <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -133,8 +163,13 @@
 
                     <div class="form-group">
                         <label for="new_password_confirmation">Konfirmasi Password Baru</label>
-                        <input type="password" class="form-control"
-                            id="new_password_confirmation" name="new_password_confirmation">
+                        <div class="input-group">
+                            <input type="password" class="form-control"
+                                id="new_password_confirmation" name="new_password_confirmation">
+                            <div class="input-group-append">
+                                <span class="input-group-text" onclick="togglePassword('new_password_confirmation', this)"><i class="fas fa-eye"></i></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -267,3 +302,20 @@
     }
 </style>
 @stop
+
+@push('js')
+<script>
+    function togglePassword(id, el) {
+        const input = document.getElementById(id);
+        if (input.type === 'password') {
+            input.type = 'text';
+            el.querySelector('i').classList.remove('fa-eye');
+            el.querySelector('i').classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            el.querySelector('i').classList.remove('fa-eye-slash');
+            el.querySelector('i').classList.add('fa-eye');
+        }
+    }
+</script>
+@endpush

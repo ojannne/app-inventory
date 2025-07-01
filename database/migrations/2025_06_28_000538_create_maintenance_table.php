@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('maintenance', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->foreignId('aset_id')->constrained('asets')->onDelete('cascade');
-            $table->date('tanggal_maintenance');
-            $table->enum('jenis_maintenance', ['Preventive', 'Corrective', 'Emergency', 'Rutin']);
+            $table->datetime('tanggal_maintenance');
+            $table->enum('jenis_maintenance', ['preventif', 'korektif', 'emergency']);
             $table->text('deskripsi');
-            $table->enum('status', ['Belum Dimulai', 'Dalam Proses', 'Selesai'])->default('Belum Dimulai');
+            $table->enum('status', ['pending', 'proses', 'selesai', 'dibatalkan'])->default('pending');
             $table->decimal('biaya', 15, 2)->nullable();
             $table->string('teknisi')->nullable();
             $table->text('catatan')->nullable();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

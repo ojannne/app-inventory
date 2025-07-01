@@ -21,7 +21,8 @@ class Aset extends Model
         'kondisi',
         'status',
         'gambar',
-        'user_id'
+        'user_id',
+        'created_by'
     ];
 
     protected $casts = [
@@ -42,5 +43,10 @@ class Aset extends Model
     public function maintenances()
     {
         return $this->hasMany(Maintenance::class, 'aset_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

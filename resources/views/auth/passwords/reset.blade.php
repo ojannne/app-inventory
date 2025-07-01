@@ -38,26 +38,22 @@
 
     <div class="input-group mb-3">
         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-            placeholder="Password Baru" required autocomplete="new-password">
+            id="reset_password" placeholder="Password Baru" required autocomplete="new-password">
         <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-            </div>
+            <span class="input-group-text" onclick="togglePassword('reset_password', this)"><i class="fas fa-eye"></i></span>
         </div>
-        @error('password')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
     </div>
+    @error('password')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 
     <div class="input-group mb-3">
         <input type="password" name="password_confirmation" class="form-control"
-            placeholder="Konfirmasi Password Baru" required autocomplete="new-password">
+            id="reset_password_confirmation" placeholder="Konfirmasi Password Baru" required autocomplete="new-password">
         <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-            </div>
+            <span class="input-group-text" onclick="togglePassword('reset_password_confirmation', this)"><i class="fas fa-eye"></i></span>
         </div>
     </div>
 
@@ -71,4 +67,26 @@
 <p class="mt-3 mb-1">
     <a href="{{ route('login') }}">Kembali ke Login</a>
 </p>
+@stop
+
+@section('js')
+<script>
+    function togglePassword(id, el) {
+        const input = document.getElementById(id);
+        if (input.type === 'password') {
+            input.type = 'text';
+            el.querySelector('i').classList.remove('fa-eye');
+            el.querySelector('i').classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            el.querySelector('i').classList.remove('fa-eye-slash');
+            el.querySelector('i').classList.add('fa-eye');
+        }
+    }
+</script>
+@show
+
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+@parent
 @stop
